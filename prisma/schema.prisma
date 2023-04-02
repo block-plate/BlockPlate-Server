@@ -1,0 +1,131 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User{
+  user_id String @id @db.Char(26)
+  pwd String @db.VarChar(30)
+  name String @db.VarChar(10)
+  type Int @db.TinyInt
+  status E_status @default(ACTIVE)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now()) @updatedAt
+  instructors Course[] @relation("COURSE_INSTRUCTOR")
+  students Course[] @relation("COURSE_STUDENT")
+  comments Comment[] @relation("COMMENT_USER")
+  reviews Review[] @relation("REVIEW_USER")
+  questions Question[] @relation("QUESTION_USER")
+  answers Answer[] @relation("ANSWER_USER")
+  
+  @@map("users")
+}
+
+model Course{
+  course_id String @id @db.Char(26)
+  title String @db.VarChar(50)
+  description String @db.Text
+  instructor_id String @db.Char(26)
+  student_id String @db.Char(26)
+  status E_status @default(ACTIVE)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now()) @updatedAt
+  lectures Lecture[] @relation("LECTURE_COURSE")
+  reviews Review[] @relation("REVIEW_COURSE")
+  questions Question[] @relation("QUESTION_COURSE")
+  instructor User @relation("COURSE_INSTRUCTOR", fields: [instructor_id], references: [instructor_id])
+  student User @relation("COURSE_STUDENT", fields: [student_id], references: [student_id])
+
+  @@index([instructor_id], map: "courses_instructor_id_fkey")
+  @@index([student_id], map: "courses_student_id_fkey")
+  @@map("courses")
+}
+
+model Lecture{
+  lecture_id String @id @db.Char(26)
+  course_id String @db.Char(26)
+  title String @db.VarChar(50)
+  data String @db.Text
+  status E_status @default(ACTIVE)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now()) @updatedAt
+  comments Comment[] @relation("COMMENT_LECTURE")
+  course Course @relation("LECTURE_COURSE", fields: [course_id], references: [course_id])
+
+  @@index([course_id], map: "lectures_course_id_fkey")
+  @@map("lectures")
+}
+
+model Comment{
+  comment_id String @id @db.Char(26)
+  lecture_id String @db.Char(26)
+  user_id String @db.Char(26)
+  contents String @db.VarChar(100)
+  status E_status @default(ACTIVE)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now()) @updatedAt
+  lecture Lecture @relation("COMMENT_LECTURE", fields: [lecture_id], references: [lecture_id])
+  user User @relation("COMMENT_USER", fields: [user_id], references: [user_id])
+
+  @@index([lecture_id], map: "comments_lecture_id_fkey")
+  @@index([user_id], map: "comments_user_id_fkey")
+  @@map("comments")
+}
+
+model Review{
+  review_id String @id @db.Char(26)
+  course_id String @db.Char(26)
+  user_id String @db.Char(26)
+  title String @db.VarChar(50)
+  contents String @db.Text
+  status E_status @default(ACTIVE)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now()) @updatedAt
+  course Course @relation("REVIEW_COURSE", fields: [course_id], references: [course_id])
+  user User @relation("REVIEW_USER", fields: [user_id], references: [user_id])
+
+  @@index([course_id], map: "reviews_course_id_fkey")
+  @@index([user_id], map: "reviews_user_id_fkey")
+  @@map("reviews")
+}
+
+model Question{
+  question_id String @id @db.Char(26)
+  course_id String @db.Char(26)
+  user_id String @db.Char(26)
+  title String @db.VarChar(50)
+  contents String @db.Text
+  status E_status @default(ACTIVE)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now()) @updatedAt
+  answers Answer[] @relation("ANSWER_QUESTION")
+  course Course @relation("QUESTION_COURSE", fields: [course_id], references: [course_id])
+  user User @relation("QUESTION_USER", fields: [user_id], references: [user_id])
+
+  @@index([course_id], map: "questions_course_id_fkey")
+  @@index([user_id], map: "questions_user_id_fkey")
+  @@map("questions")
+}
+
+model Answer{
+  answer_id String @id @db.Char(26)
+  question_id String @db.Char(26)
+  user_id String @db.Char(26)
+  contents String @db.Text
+  status E_status @default(ACTIVE)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now()) @updatedAt
+  question    Question @relation("ANSWER_QUESTION", fields: [question_id], references: [question_id])
+  user User @relation("ANSWER_USER", fields: [user_id], references: [user_id])
+
+  @@index([question_id], map: "answers_question_id_fkey")
+  @@index([user_id], map: "answers_user_id_fkey")
+  @@map("answers")
+}
