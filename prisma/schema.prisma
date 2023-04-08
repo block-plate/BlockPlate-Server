@@ -40,8 +40,8 @@ model Course{
   lectures Lecture[] @relation("LECTURE_COURSE")
   reviews Review[] @relation("REVIEW_COURSE")
   questions Question[] @relation("QUESTION_COURSE")
-  instructor User @relation("COURSE_INSTRUCTOR", fields: [instructor_id], references: [instructor_id])
-  student User @relation("COURSE_STUDENT", fields: [student_id], references: [student_id])
+  instructor User @relation("COURSE_INSTRUCTOR", fields: [instructor_id], references: [user_id])
+  student User @relation("COURSE_STUDENT", fields: [student_id], references: [user_id])
 
   @@index([instructor_id], map: "courses_instructor_id_fkey")
   @@index([student_id], map: "courses_student_id_fkey")
@@ -128,4 +128,10 @@ model Answer{
   @@index([question_id], map: "answers_question_id_fkey")
   @@index([user_id], map: "answers_user_id_fkey")
   @@map("answers")
+}
+
+enum E_status {
+  ACTIVE
+  INACTIVE
+  DELETED
 }
