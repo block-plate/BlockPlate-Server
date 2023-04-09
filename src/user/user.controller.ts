@@ -1,4 +1,4 @@
-import { Body, Controller, Get } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { ApiExtraModels, ApiTags } from '@nestjs/swagger';
 import { UserCreateInputDTO } from './dto/create_user.dto';
 
@@ -6,7 +6,7 @@ import { UserCreateInputDTO } from './dto/create_user.dto';
 @ApiTags('User API')
 @Controller('users')
 export class UserController {
-  @Get('/')
+  @Post('/')
   async createUser(@Body() userInputDTO: UserCreateInputDTO) {
     console.log('!');
   }

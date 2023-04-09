@@ -12,6 +12,7 @@ datasource db {
 
 model User{
   user_id String @id @db.Char(26)
+  email String @unique @db.VarChar(100)
   pwd String @db.VarChar(30)
   name String @db.VarChar(10)
   type Int @db.TinyInt

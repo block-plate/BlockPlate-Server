@@ -5,6 +5,22 @@ import { PrismaService } from '../../../prisma/prisma.service';
 export class UserRepository {
   constructor(private readonly prisma: PrismaService) {}
 
+  async uniqueEmail(email: string) {
+    const exist = await this.prisma.user.findUnique({
+      select: { user_id: true, name: true },
+      where: { email },
+    });
+    return exist;
+  }
+
+  async checkUserJWT({ user_id }) {
+    const checkUser = await this.prisma.user.findUnique({
+      select: { name: true, user_id: true, email: true },
+      where: { user_id },
+    });
+
+    return checkUser;
+  }
   async createUser(info: Omit<Prisma.UserUncheckedCreateInput, 'user_id'>) {
     const newUser = await this.prisma.user.create({
       data: {
@@ -18,11 +34,6 @@ export class UserRepository {
   async findOneUser(info: Prisma.UserWhereInput) {
     const user = await this.prisma.user.findFirst({ where: info });
     return user;
-  }
-
-  async get() {
-    const users = await this.prisma.user.findMany();
-    return users;
   }
 
   async getUserList({ user, page }: { user: string; page: string }) {

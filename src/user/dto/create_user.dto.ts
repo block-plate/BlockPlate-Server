@@ -1,11 +1,20 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Prisma } from '@prisma/client';
-import { IsEnum, IsNumber, IsString } from 'class-validator';
+import { IsEmail, IsEnum, IsNumber, IsString } from 'class-validator';
 import { E_UserType } from '../interface/user_type.enum';
 
 export class UserCreateInputDTO
   implements Omit<Prisma.UserUncheckedCreateInput, 'user_id'>
 {
+  @ApiProperty({
+    name: 'email',
+    description: '이메일',
+    type: 'string',
+  })
+  @IsString()
+  @IsEmail()
+  email: string;
+
   @ApiProperty({
     name: 'pwd',
     description: '비밀번호',
