@@ -1,7 +1,9 @@
+import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { ulid } from 'ulid';
 import { PrismaService } from '../../../prisma/prisma.service';
 
+@Injectable()
 export class UserRepository {
   constructor(private readonly prisma: PrismaService) {}
 
@@ -28,6 +30,8 @@ export class UserRepository {
         ...info,
       },
     });
+    console.log('!');
+
     return newUser;
   }
 

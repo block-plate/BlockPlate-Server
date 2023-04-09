@@ -1,8 +1,10 @@
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcrypt';
 import { UserCreateInputDTO } from '../dto/create_user.dto';
 import { UserRepository } from './user.repository';
 
+@Injectable()
 export class UserService {
   constructor(
     private readonly userRepo: UserRepository,
@@ -24,7 +26,8 @@ export class UserService {
   async transformPassword(password: string) {
     const hashed_password = await bcrypt.hash(
       password,
-      Number(this.config.get('HASH_SALT')),
+      10,
+      //Number(this.config.get('HASH_SALT')),
     );
     return hashed_password;
   }

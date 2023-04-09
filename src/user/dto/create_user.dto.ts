@@ -11,8 +11,8 @@ export class UserCreateInputDTO
     description: '이메일',
     type: 'string',
   })
-  @IsString()
   @IsEmail()
+  @IsString()
   email: string;
 
   @ApiProperty({
