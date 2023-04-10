@@ -7,8 +7,18 @@
 
 import { INDEX, RESCODE, RES_ERR_CODE } from './BaseResponseIndex';
 
-const { AUTH, USER, COURSE, LECTURE, REVIEW, COMMENT, QUESTION, ANSWER } =
-  INDEX;
+const {
+  AUTH,
+  USER,
+  COURSE,
+  LECTURE,
+  REVIEW,
+  COMMENT,
+  QUESTION,
+  ANSWER,
+  INSTRUCTOR,
+  STUDENT,
+} = INDEX;
 const { EXIST, NOT_EXIST, FAILURE, EXPIRED, NOT_AUTHORIZED, INVALID } =
   RES_ERR_CODE;
 export const baseResponeStatus = {
@@ -50,12 +60,18 @@ export const baseResponeStatus = {
     message: '이미 존재하는 유저입니다.',
   },
 
-  ARCHIVE_NOT_EXIST: {
+  NOT_INSTRUCTOR: {
+    is_success: false,
+    code: RESCODE + INSTRUCTOR + EXIST,
+    message: '해당 유저는 강사가 아닙니다.',
+  },
+
+  COURSE_NOT_EXIST: {
     is_success: false,
     code: RESCODE + COURSE + NOT_EXIST,
     message: '존재하지 않는 코스입니다.',
   },
-  ARCHIVE_EXIST: {
+  COURSE_EXIST: {
     is_success: false,
     code: RESCODE + COURSE + EXIST,
     message: '이미 존재하는 코스입니다.',

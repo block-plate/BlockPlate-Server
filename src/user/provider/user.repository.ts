@@ -40,6 +40,13 @@ export class UserRepository {
     return user;
   }
 
+  async checkUserType({ user_id }) {
+    const checkUser = await this.prisma.user.findUnique({
+      where: { user_id },
+    });
+    return checkUser.type;
+  }
+
   async getUserList({ user, page }: { user: string; page: string }) {
     const user_id =
       user && user === 'all' ? undefined : user ? user : undefined;
