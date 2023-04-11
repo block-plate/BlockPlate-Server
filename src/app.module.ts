@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { PrismaModule } from '../prisma/prisma.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { configOption } from './common/options/config.option';
+import { PrismaModule } from './prisma/prisma.module';
 
 import { CourseModule } from './course/course.module';
 import { UserModule } from './user/user.module';
