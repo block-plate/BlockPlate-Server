@@ -18,4 +18,9 @@ export class CourseRepository {
     });
     return newCourse;
   }
+
+  async findOneCourse(info: Prisma.CourseWhereInput) {
+    const course = await this.prisma.course.findFirst({ where: info });
+    return course;
+  }
 }

@@ -7,6 +7,7 @@ import { PrismaModule } from './prisma/prisma.module';
 
 import { CourseModule } from './course/course.module';
 import { UserModule } from './user/user.module';
+import { LectureModule } from './lecture/lecture.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { UserModule } from './user/user.module';
     ConfigModule.forRoot(configOption),
     UserModule,
     CourseModule,
+    LectureModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],
