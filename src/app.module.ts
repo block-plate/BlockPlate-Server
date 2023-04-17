@@ -8,6 +8,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { CourseModule } from './course/course.module';
 import { UserModule } from './user/user.module';
 import { LectureModule } from './lecture/lecture.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { LectureModule } from './lecture/lecture.module';
     UserModule,
     CourseModule,
     LectureModule,
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],
