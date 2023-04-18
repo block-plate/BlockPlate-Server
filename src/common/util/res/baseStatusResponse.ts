@@ -77,13 +77,13 @@ export const baseResponeStatus = {
     message: '이미 존재하는 코스입니다.',
   },
 
-  CATEGORY_NOT_EXIST: {
+  LECTURE_NOT_EXIST: {
     is_success: false,
     code: RESCODE + LECTURE + NOT_EXIST,
     message: '존재하지 않는 강의입니다.',
   },
 
-  CATEGORY_EXIST: {
+  LECTURE_EXIST: {
     is_success: false,
     code: RESCODE + LECTURE + EXIST,
     message: '이미 존재하는 강의입니다.',

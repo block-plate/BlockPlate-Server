@@ -18,4 +18,9 @@ export class LectureRepository {
     });
     return newLecture;
   }
+
+  async findOneLecture(info: Prisma.LectureWhereInput) {
+    const lecture = await this.prisma.lecture.findFirst({ where: info });
+    return lecture;
+  }
 }

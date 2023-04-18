@@ -8,5 +8,6 @@ import { LectureService } from './provider/lecture.service';
   imports: [CourseModule],
   controllers: [LectureController],
   providers: [LectureService, LectureRepository],
+  exports: [LectureRepository],
 })
 export class LectureModule {}
