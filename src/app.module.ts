@@ -9,6 +9,7 @@ import { CourseModule } from './course/course.module';
 import { UserModule } from './user/user.module';
 import { LectureModule } from './lecture/lecture.module';
 import { CommentModule } from './comment/comment.module';
+import { ReviewModule } from './review/review.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { CommentModule } from './comment/comment.module';
     CourseModule,
     LectureModule,
     CommentModule,
+    ReviewModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],
