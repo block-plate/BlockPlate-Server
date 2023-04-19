@@ -5,11 +5,13 @@ import { AppService } from './app.service';
 import { configOption } from './common/options/config.option';
 import { PrismaModule } from './prisma/prisma.module';
 
-import { CourseModule } from './course/course.module';
-import { UserModule } from './user/user.module';
-import { LectureModule } from './lecture/lecture.module';
 import { CommentModule } from './comment/comment.module';
+import { CourseModule } from './course/course.module';
+import { LectureModule } from './lecture/lecture.module';
+import { QuestionModule } from './question/question.module';
 import { ReviewModule } from './review/review.module';
+import { UserModule } from './user/user.module';
+import { AnswerModule } from './answer/answer.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { ReviewModule } from './review/review.module';
     LectureModule,
     CommentModule,
     ReviewModule,
+    QuestionModule,
+    AnswerModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],
