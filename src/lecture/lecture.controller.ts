@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Param, Patch, Post, Put } from '@nestjs/common';
 import {
   ApiBody,
   ApiExtraModels,
@@ -9,6 +9,7 @@ import {
 import { BaseResponse } from '../common/util/res/BaseResponse';
 import { baseResponeStatus } from '../common/util/res/baseStatusResponse';
 import { LectureCreateInputDTO } from './dto/create_lecture.dto';
+import { LectureUpdateInputDTO } from './dto/update_lecture.dto';
 import { LectureService } from './provider/lecture.service';
 
 @ApiExtraModels(LectureCreateInputDTO)
@@ -46,6 +47,26 @@ export class LectureController {
   @Post('/') //강의 생성
   async createLecture(@Body() lectureInputDTO: LectureCreateInputDTO) {
     const result = await this.lectureService.createLecture(lectureInputDTO);
+    return new BaseResponse(baseResponeStatus.SUCCESS, result);
+  }
+
+  @Patch('/:lecture_id')
+  async updateLecture(
+    @Param('lecture_id') lecture_id: string,
+    @Body() LectureUpdateInputDTO: LectureUpdateInputDTO,
+  ) {
+    const result = await this.lectureService.updateLecture({
+      lecture_id,
+      ...LectureUpdateInputDTO,
+    });
+    return new BaseResponse(baseResponeStatus.SUCCESS, result);
+  }
+
+  @Put('/:lecture_id')
+  async deleteStatusLecture(@Param('lecture_id') lecture_id: string) {
+    const result = await this.lectureService.deleteStatusLecture({
+      lecture_id,
+    });
     return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
 }

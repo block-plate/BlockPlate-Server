@@ -1,7 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { baseResponeStatus } from '../../common/util/res/baseStatusResponse';
 import { CourseRepository } from '../../course/provider/course.repository';
 import { LectureCreateInputDTO } from '../dto/create_lecture.dto';
+import { LectureUpdateInputDTO } from '../dto/update_lecture.dto';
 import { LectureRepository } from './lecture.repository';
 
 @Injectable()
@@ -21,5 +23,26 @@ export class LectureService {
 
     const newLecture = await this.lectureRepo.createLecture(info);
     return newLecture;
+  }
+
+  async updateLecture(
+    info: LectureUpdateInputDTO & Prisma.LectureWhereUniqueInput,
+  ) {
+    const { lecture_id } = info;
+    const lectureExist = await this.lectureRepo.findOneLecture({
+      lecture_id,
+    });
+    if (!lectureExist)
+      throw new BadRequestException(baseResponeStatus.LECTURE_NOT_EXIST);
+    const updatedLecture = await this.lectureRepo.updateLecture(info);
+    return updatedLecture;
+  }
+
+  async deleteStatusLecture(info: Prisma.LectureWhereUniqueInput) {
+    const exist = await this.lectureRepo.deleteStatusLecture(info);
+    if (!exist)
+      throw new BadRequestException(baseResponeStatus.LECTURE_NOT_EXIST);
+    const deletedLecture = await this.lectureRepo.deleteStatusLecture(info);
+    return deletedLecture;
   }
 }
