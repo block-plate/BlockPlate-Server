@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Param, Post, Put } from '@nestjs/common';
 import {
   ApiBody,
   ApiExtraModels,
@@ -46,6 +46,14 @@ export class CommentController {
   @Post('/') //코멘트 생성
   async createComment(@Body() commentInputDTO: CommentCreateInputDTO) {
     const result = await this.commentService.createComment(commentInputDTO);
+    return new BaseResponse(baseResponeStatus.SUCCESS, result);
+  }
+
+  @Put('/:comment_id')
+  async deleteStatusComment(@Param('comment_id') comment_id: string) {
+    const result = await this.commentService.deleteStatusComment({
+      comment_id,
+    });
     return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
 }

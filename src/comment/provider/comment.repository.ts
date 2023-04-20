@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import { E_status, Prisma } from '@prisma/client';
 import { ulid } from 'ulid';
 import { PrismaService } from '../../prisma/prisma.service';
 
@@ -17,5 +17,20 @@ export class CommentRepository {
       },
     });
     return newComment;
+  }
+
+  async findOneComment(info: Prisma.CommentWhereInput) {
+    const comment = await this.prisma.comment.findFirst({ where: info });
+    return comment;
+  }
+
+  async deleteStatusComment(info: Prisma.CommentWhereUniqueInput) {
+    const deletedComment = await this.prisma.comment.update({
+      where: info,
+      data: {
+        status: E_status.DELETED,
+      },
+    });
+    return deletedComment;
   }
 }

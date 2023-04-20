@@ -1,4 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { baseResponeStatus } from '../../common/util/res/baseStatusResponse';
 import { LectureRepository } from '../../lecture/provider/lecture.repository';
 import { UserRepository } from '../../user/provider/user.repository';
@@ -24,5 +25,14 @@ export class CommentService {
 
     const newComment = await this.commentRepo.createComment(info);
     return newComment;
+  }
+
+  async deleteStatusComment(info: Prisma.CommentWhereUniqueInput) {
+    const exist = await this.commentRepo.findOneComment(info);
+    if (!exist)
+      throw new BadRequestException(baseResponeStatus.COMMENT_NOT_EXIST);
+
+    const deletedComment = await this.commentRepo.deleteStatusComment(info);
+    return deletedComment;
   }
 }

@@ -88,6 +88,18 @@ export const baseResponeStatus = {
     code: RESCODE + LECTURE + EXIST,
     message: '이미 존재하는 강의입니다.',
   },
+
+  COMMENT_NOT_EXIST: {
+    is_success: false,
+    code: RESCODE + COMMENT + NOT_EXIST,
+    message: '존재하지 않는 코멘트입니다.',
+  },
+
+  COMMENT_EXIST: {
+    is_success: false,
+    code: RESCODE + COMMENT + EXIST,
+    message: '이미 존재하는 코멘트입니다.',
+  },
   /*
   CATEGORY_INVALID: {
     is_success: false,
