@@ -9,5 +9,7 @@ export class LectureUpdateInputDTO
 {
   @IsOptional()
   title?: string;
+
+  @IsOptional()
   data?: string;
 }
