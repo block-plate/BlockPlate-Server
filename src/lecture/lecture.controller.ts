@@ -12,7 +12,7 @@ import { LectureCreateInputDTO } from './dto/create_lecture.dto';
 import { LectureUpdateInputDTO } from './dto/update_lecture.dto';
 import { LectureService } from './provider/lecture.service';
 
-@ApiExtraModels(LectureCreateInputDTO)
+@ApiExtraModels(LectureCreateInputDTO, LectureUpdateInputDTO)
 @ApiTags('Lecture API')
 @Controller('lectures')
 export class LectureController {
