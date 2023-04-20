@@ -100,6 +100,18 @@ export const baseResponeStatus = {
     code: RESCODE + COMMENT + EXIST,
     message: '이미 존재하는 코멘트입니다.',
   },
+
+  REVIEW_NOT_EXIST: {
+    is_success: false,
+    code: RESCODE + REVIEW + NOT_EXIST,
+    message: '존재하지 않는 리뷰입니다.',
+  },
+
+  REVIEW_EXIST: {
+    is_success: false,
+    code: RESCODE + REVIEW + EXIST,
+    message: '이미 존재하는 리뷰입니다.',
+  },
   /*
   CATEGORY_INVALID: {
     is_success: false,

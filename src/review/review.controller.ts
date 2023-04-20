@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Param, Post, Put } from '@nestjs/common';
 import {
   ApiBody,
   ApiExtraModels,
@@ -47,6 +47,14 @@ export class ReviewController {
   @Post('/') //리뷰 생성
   async createReview(@Body() reviewInputDTO: ReviewCreateInputDTO) {
     const result = await this.reviewService.createReview(reviewInputDTO);
+    return new BaseResponse(baseResponeStatus.SUCCESS, result);
+  }
+
+  @Put('/:review_id')
+  async deleteStatusAnswer(@Param('review_id') review_id: string) {
+    const result = await this.reviewService.deleteStatusReview({
+      review_id,
+    });
     return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
 }

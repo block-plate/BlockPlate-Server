@@ -1,4 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { baseResponeStatus } from '../../common/util/res/baseStatusResponse';
 import { CourseRepository } from '../../course/provider/course.repository';
 import { UserRepository } from '../../user/provider/user.repository';
@@ -28,5 +29,14 @@ export class ReviewService {
 
     const newReview = await this.reviewRepo.createReview(info);
     return newReview;
+  }
+
+  async deleteStatusReview(info: Prisma.ReviewWhereUniqueInput) {
+    const exist = await this.reviewRepo.findOneReview(info);
+    if (!exist)
+      throw new BadRequestException(baseResponeStatus.REVIEW_NOT_EXIST);
+
+    const deletedReview = await this.reviewRepo.deleteStatusReview(info);
+    return deletedReview;
   }
 }
