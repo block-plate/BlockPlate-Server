@@ -80,7 +80,7 @@ export class LectureController {
   }
 
   @Get('/')
-  async getLectureListByCourse(@Query() query) {
+  async getLectureList(@Query() query) {
     const result = await this.lectureService.getLectureList(query);
     return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
