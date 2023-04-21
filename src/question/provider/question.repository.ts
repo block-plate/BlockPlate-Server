@@ -19,9 +19,21 @@ export class QuestionRepository {
     });
     return newQuestion;
   }
+
   async findOneQuestion(info: Prisma.QuestionWhereInput) {
     const question = await this.prisma.question.findFirst({ where: info });
     return question;
+  }
+
+  async getQuestionList({ user, course }: { user: string; course: string }) {
+    const user_id =
+      user && user === 'all' ? undefined : user ? user : undefined;
+    const course_id =
+      course && course === 'all' ? undefined : course ? course : undefined;
+    const questions = await this.prisma.question.findMany({
+      where: { user_id, course_id },
+    });
+    return questions;
   }
 
   async updateQuestion(

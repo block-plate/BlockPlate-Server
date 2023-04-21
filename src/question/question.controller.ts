@@ -1,4 +1,13 @@
-import { Body, Controller, Param, Patch, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import {
   ApiBody,
   ApiExtraModels,
@@ -84,6 +93,12 @@ export class QuestionController {
     const result = await this.questionService.deleteStatusQuestion({
       question_id,
     });
+    return new BaseResponse(baseResponeStatus.SUCCESS, result);
+  }
+
+  @Get('/')
+  async getQuestionList(@Query() query) {
+    const result = await this.questionService.getQuestionList(query);
     return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
 }

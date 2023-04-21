@@ -38,6 +38,26 @@ export class QuestionService {
     return exist;
   }
 
+  async getQuestionList({ user, course }: { user: string; course: string }) {
+    const user_id = user;
+    const course_id = course;
+
+    const userExist = await this.userRepo.findOneUser({
+      user_id,
+    });
+    if (!userExist)
+      throw new BadRequestException(baseResponeStatus.USER_NOT_EXIST);
+
+    const courseExist = await this.courseRepo.findOneCourse({
+      course_id,
+    });
+    if (!courseExist)
+      throw new BadRequestException(baseResponeStatus.COURSE_NOT_EXIST);
+
+    const courses = await this.questionRepo.getQuestionList({ user, course });
+    return courses;
+  }
+
   async updateQuestion(
     info: QuestionUpdateInputDTO & Prisma.QuestionWhereUniqueInput,
   ) {
