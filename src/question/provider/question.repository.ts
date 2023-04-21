@@ -31,7 +31,7 @@ export class QuestionRepository {
     const course_id =
       course && course === 'all' ? undefined : course ? course : undefined;
     const questions = await this.prisma.question.findMany({
-      where: { user_id, course_id },
+      where: { user_id, course_id, status: 'ACTIVE' },
     });
     return questions;
   }

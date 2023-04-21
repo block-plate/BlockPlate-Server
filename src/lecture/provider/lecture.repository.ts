@@ -29,9 +29,8 @@ export class LectureRepository {
     const course_id =
       course && course === 'all' ? undefined : course ? course : undefined;
     const lectures = await this.prisma.lecture.findMany({
-      where: { course_id },
+      where: { course_id, status: 'ACTIVE' },
     });
-    console.log(lectures);
 
     return lectures;
   }

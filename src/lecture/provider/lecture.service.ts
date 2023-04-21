@@ -32,7 +32,8 @@ export class LectureService {
     });
     if (!courseExist)
       throw new BadRequestException(baseResponeStatus.COURSE_NOT_EXIST);
-    return await this.lectureRepo.getLectureList({ course });
+    const lectures = await this.lectureRepo.getLectureList({ course });
+    return lectures;
   }
 
   async updateLecture(
