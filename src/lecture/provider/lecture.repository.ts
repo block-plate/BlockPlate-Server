@@ -25,6 +25,17 @@ export class LectureRepository {
     return lecture;
   }
 
+  async getLectureList({ course }: { course: string }) {
+    const course_id =
+      course && course === 'all' ? undefined : course ? course : undefined;
+    const lectures = await this.prisma.lecture.findMany({
+      where: { course_id },
+    });
+    console.log(lectures);
+
+    return lectures;
+  }
+
   async updateLecture(
     info: LectureUpdateInputDTO & Prisma.LectureWhereUniqueInput,
   ) {
