@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import {
   ApiBody,
   ApiExtraModels,
@@ -9,9 +9,10 @@ import {
 import { BaseResponse } from '../common/util/res/BaseResponse';
 import { baseResponeStatus } from '../common/util/res/baseStatusResponse';
 import { CourseCreateInputDTO } from './dto/create_course.dto';
+import { CourseUpdateInputDTO } from './dto/update_course.dto';
 import { CourseService } from './provider/course.service';
 
-@ApiExtraModels(CourseCreateInputDTO)
+@ApiExtraModels(CourseCreateInputDTO, CourseUpdateInputDTO)
 @ApiTags('Course API')
 @Controller('courses')
 export class CourseController {
@@ -47,6 +48,33 @@ export class CourseController {
   @Post('/') //코스 생성
   async createCourse(@Body() courseInputDTO: CourseCreateInputDTO) {
     const result = await this.courseService.createCourse(courseInputDTO);
+    return new BaseResponse(baseResponeStatus.SUCCESS, result);
+  }
+
+  //코스 조회
+  @Get('/')
+  async getCourseList() {
+    const result = await this.courseService.getCourseList();
+    return new BaseResponse(baseResponeStatus.SUCCESS, result);
+  }
+
+  @Patch('/:course_id') //코스 수정
+  async updateCourse(
+    @Param('course_id') course_id: string,
+    @Body() CourseUpdateInputDTO: CourseUpdateInputDTO,
+  ) {
+    const result = await this.courseService.updateCourse({
+      course_id,
+      ...CourseUpdateInputDTO,
+    });
+    return new BaseResponse(baseResponeStatus.SUCCESS, result);
+  }
+
+  @Put('/:course_id')
+  async deleteStatusCourse(@Param('course_id') course_id: string) {
+    const result = await this.courseService.deleteStatusCourse({
+      course_id,
+    });
     return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
 }
