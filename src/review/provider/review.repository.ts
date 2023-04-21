@@ -18,9 +18,20 @@ export class ReviewRepository {
     });
     return newReview;
   }
+
   async findOneReview(info: Prisma.ReviewWhereInput) {
     const review = await this.prisma.review.findFirst({ where: info });
     return review;
+  }
+
+  async getReviewList({ course }: { course: string }) {
+    const course_id =
+      course && course === 'all' ? undefined : course ? course : undefined;
+    const reviews = await this.prisma.review.findMany({
+      where: { course_id, status: 'ACTIVE' },
+    });
+
+    return reviews;
   }
 
   async deleteStatusReview(info: Prisma.ReviewWhereUniqueInput) {

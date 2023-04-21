@@ -31,6 +31,17 @@ export class ReviewService {
     return newReview;
   }
 
+  async getReviewList({ course }: { course: string }) {
+    const course_id = course;
+    const courseExist = await this.courseRepo.findOneCourse({
+      course_id,
+    });
+    if (!courseExist)
+      throw new BadRequestException(baseResponeStatus.COURSE_NOT_EXIST);
+    const reviews = await this.reviewRepo.getReviewList({ course });
+    return reviews;
+  }
+
   async deleteStatusReview(info: Prisma.ReviewWhereUniqueInput) {
     const exist = await this.reviewRepo.findOneReview(info);
     if (!exist)
