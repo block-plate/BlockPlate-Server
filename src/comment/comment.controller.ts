@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import {
   ApiBody,
   ApiExtraModels,
@@ -54,6 +54,12 @@ export class CommentController {
     const result = await this.commentService.deleteStatusComment({
       comment_id,
     });
+    return new BaseResponse(baseResponeStatus.SUCCESS, result);
+  }
+
+  @Get('/')
+  async getCommentList(@Query() query) {
+    const result = await this.commentService.getCommentList(query);
     return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
 }

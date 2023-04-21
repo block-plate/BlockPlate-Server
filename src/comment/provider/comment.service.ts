@@ -27,6 +27,15 @@ export class CommentService {
     return newComment;
   }
 
+  async getCommentList({ lecture }: { lecture: string }) {
+    const lecture_id = lecture;
+    const lectureExist = await this.lectureRepo.findOneLecture({ lecture_id });
+    if (!lectureExist)
+      throw new BadRequestException(baseResponeStatus.LECTURE_NOT_EXIST);
+    const comments = await this.commentRepo.getCommentList({ lecture });
+    return comments;
+  }
+
   async deleteStatusComment(info: Prisma.CommentWhereUniqueInput) {
     const exist = await this.commentRepo.findOneComment(info);
     if (!exist)

@@ -24,6 +24,15 @@ export class CommentRepository {
     return comment;
   }
 
+  async getCommentList({ lecture }: { lecture: string }) {
+    const lecture_id =
+      lecture && lecture === 'all' ? undefined : lecture ? lecture : undefined;
+    const comments = await this.prisma.comment.findMany({
+      where: { lecture_id, status: 'ACTIVE' },
+    });
+    return comments;
+  }
+
   async deleteStatusComment(info: Prisma.CommentWhereUniqueInput) {
     const deletedComment = await this.prisma.comment.update({
       where: info,
