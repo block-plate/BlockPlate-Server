@@ -47,21 +47,12 @@ export class UserRepository {
     return checkUser.type;
   }
 
-  async getUserList({ user, page }: { user: string; page: string }) {
-    const user_id =
-      user && user === 'all' ? undefined : user ? user : undefined;
-    const skip = !isNaN(Number([page])) ? (Number([page]) - 1) * 10 : 0;
+  async getUserList() {
     const users = await this.prisma.user.findMany({
-      where: { user_id },
-      skip,
-      take: 10,
-    });
-    const total_count = await this.prisma.user.count({
       where: {
-        user_id,
         status: 'ACTIVE',
       },
     });
-    return { users, total_count };
+    return users;
   }
 }

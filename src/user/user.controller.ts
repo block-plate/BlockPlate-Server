@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiExtraModels, ApiTags } from '@nestjs/swagger';
 import { BaseResponse } from '../common/util/res/BaseResponse';
 import { baseResponeStatus } from '../common/util/res/baseStatusResponse';
@@ -13,6 +13,12 @@ export class UserController {
   @Post('/')
   async createUser(@Body() userInputDTO: UserCreateInputDTO) {
     const result = await this.userService.createUser(userInputDTO);
+    return new BaseResponse(baseResponeStatus.SUCCESS, result);
+  }
+
+  @Get('/')
+  async getUserList() {
+    const result = await this.userService.getUserList();
     return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
 }

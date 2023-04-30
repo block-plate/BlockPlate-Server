@@ -21,6 +21,11 @@ export class UserService {
     return newUser;
   }
 
+  async getUserList() {
+    const users = await this.userRepo.getUserList();
+    return users;
+  }
+
   /**** hash ****/
 
   async transformPassword(password: string) {
