@@ -71,6 +71,12 @@ export class CourseController {
     return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
 
+  @Get('apply/:user_id')
+  async userCourseList(@Param('user_id') user_id: string) {
+    const result = await this.courseService.getCourseListByUser({ user_id });
+    return new BaseResponse(baseResponeStatus.SUCCESS, result);
+  }
+
   //코스 조회
   @Get('/')
   async getCourseList() {

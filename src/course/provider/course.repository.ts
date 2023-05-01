@@ -49,6 +49,22 @@ export class CourseRepository {
     return courses;
   }
 
+  async getCourseListByUser({ user_id }) {
+    const courses = await this.prisma.courseUserRoom.findMany({
+      where: {
+        student_id: user_id,
+        status: 'ACTIVE',
+      },
+    });
+    const courseInfos = [];
+    for (const course of courses) {
+      const courseInfo = await this.findOneCourse({
+        course_id: course.course_id,
+      });
+      courseInfos.push(courseInfo);
+    }
+    return courseInfos;
+  }
   async updateCourse(
     info: CourseUpdateInputDTO & Prisma.CourseWhereUniqueInput,
   ) {
