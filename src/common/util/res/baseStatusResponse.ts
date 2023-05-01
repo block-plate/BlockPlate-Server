@@ -66,6 +66,12 @@ export const baseResponeStatus = {
     message: '해당 유저는 강사가 아닙니다.',
   },
 
+  NOT_STUDENT: {
+    is_success: false,
+    code: RESCODE + STUDENT + EXIST,
+    message: '해당 유저는 학생이 아닙니다.',
+  },
+
   COURSE_NOT_EXIST: {
     is_success: false,
     code: RESCODE + COURSE + NOT_EXIST,

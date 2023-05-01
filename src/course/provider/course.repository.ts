@@ -20,6 +20,21 @@ export class CourseRepository {
     return newCourse;
   }
 
+  async userCourseApply({ user_id, course_id }) {
+    const newApply = await this.prisma.course.update({
+      where: { course_id },
+      data: {
+        students: {
+          create: {
+            room_id: ulid(),
+            student_id: user_id,
+          },
+        },
+      },
+    });
+    return newApply;
+  }
+
   async findOneCourse(info: Prisma.CourseWhereInput) {
     const course = await this.prisma.course.findFirst({ where: info });
     return course;

@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import {
   ApiBody,
   ApiExtraModels,
@@ -10,6 +20,7 @@ import { BaseResponse } from '../common/util/res/BaseResponse';
 import { baseResponeStatus } from '../common/util/res/baseStatusResponse';
 import { CourseCreateInputDTO } from './dto/create_course.dto';
 import { CourseUpdateInputDTO } from './dto/update_course.dto';
+import { userCourseApplyQuery } from './interface/userCourseApplyQuery.interface';
 import { CourseService } from './provider/course.service';
 
 @ApiExtraModels(CourseCreateInputDTO, CourseUpdateInputDTO)
@@ -48,6 +59,15 @@ export class CourseController {
   @Post('/') //코스 생성
   async createCourse(@Body() courseInputDTO: CourseCreateInputDTO) {
     const result = await this.courseService.createCourse(courseInputDTO);
+    return new BaseResponse(baseResponeStatus.SUCCESS, result);
+  }
+
+  @Post('apply') //user -> course 신청
+  async userCourseApply(@Query() query: userCourseApplyQuery) {
+    const { user, course } = query;
+    if (!user || !course)
+      throw new BadRequestException('user_id,course_id are all needed');
+    const result = await this.courseService.userCourseApply(query);
     return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
 
