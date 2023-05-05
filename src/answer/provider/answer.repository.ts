@@ -25,6 +25,19 @@ export class AnswerRepository {
     return answer;
   }
 
+  async getAnswerList({ question }: { question: string }) {
+    const question_id =
+      question && question === 'all'
+        ? undefined
+        : question
+        ? question
+        : undefined;
+    const answers = await this.prisma.answer.findMany({
+      where: { question_id, status: 'ACTIVE' },
+    });
+    return answers;
+  }
+
   async updateAnswer(
     info: AnswerUpdateInputDTO & Prisma.AnswerWhereUniqueInput,
   ) {

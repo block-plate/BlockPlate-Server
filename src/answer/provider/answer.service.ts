@@ -31,6 +31,19 @@ export class AnswerService {
     return newAnswer;
   }
 
+  async getAnswerList({ question }: { question: string }) {
+    const question_id = question;
+
+    const questionExist = await this.questionRepo.findOneQuestion({
+      question_id,
+    });
+    if (!questionExist)
+      throw new BadRequestException(baseResponeStatus.QUESTION_NOT_EXIST);
+
+    const answers = await this.answerRepo.getAnswerList({ question });
+    return answers;
+  }
+
   async updateAnswer(
     info: AnswerUpdateInputDTO & Prisma.AnswerWhereUniqueInput,
   ) {
