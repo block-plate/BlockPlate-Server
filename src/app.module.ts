@@ -12,6 +12,7 @@ import { QuestionModule } from './question/question.module';
 import { ReviewModule } from './review/review.module';
 import { UserModule } from './user/user.module';
 import { AnswerModule } from './answer/answer.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AnswerModule } from './answer/answer.module';
     ReviewModule,
     QuestionModule,
     AnswerModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],
