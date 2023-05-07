@@ -35,6 +35,11 @@ export class UserRepository {
     return newUser;
   }
 
+  async findUserByEmail({ email }) {
+    const user = await this.prisma.user.findUnique({ where: { email } });
+    return user;
+  }
+
   async findOneUser(info: Prisma.UserWhereInput) {
     const user = await this.prisma.user.findFirst({ where: info });
     return user;

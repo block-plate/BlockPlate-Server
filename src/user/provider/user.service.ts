@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcrypt';
+import { baseResponeStatus } from '../../common/util/res/baseStatusResponse';
 import { UserCreateInputDTO } from '../dto/create_user.dto';
 import { UserRepository } from './user.repository';
 
@@ -12,7 +13,9 @@ export class UserService {
   ) {}
 
   async createUser(info: UserCreateInputDTO) {
-    const { pwd } = info;
+    const { pwd, email } = info;
+    if (!this.userRepo.uniqueEmail(email))
+      throw new BadRequestException(baseResponeStatus.USER_EMAIL_EXIST);
     info = {
       ...info,
       pwd: await this.transformPassword(pwd),
@@ -31,8 +34,7 @@ export class UserService {
   async transformPassword(password: string) {
     const hashed_password = await bcrypt.hash(
       password,
-      10,
-      //Number(this.config.get('HASH_SALT')),
+      Number(this.config.get('HASH_SALT')),
     );
     return hashed_password;
   }

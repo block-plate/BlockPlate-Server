@@ -60,6 +60,12 @@ export const baseResponeStatus = {
     message: '이미 존재하는 유저입니다.',
   },
 
+  USER_EMAIL_EXIST: {
+    is_success: false,
+    code: RESCODE + USER + EXIST,
+    message: '이미 존재하는 이메일입니다.',
+  },
+
   NOT_INSTRUCTOR: {
     is_success: false,
     code: RESCODE + INSTRUCTOR + EXIST,
