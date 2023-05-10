@@ -28,12 +28,9 @@ export class AuthService {
       (await this.userService.comparePassword({ password, hashed_password }))
     ) {
       const { pwd, ...result } = findUser;
-      // //login
-      // const payload = { email };
-      // const accessToken = await this.jwtService.sign(payload);
       return result;
     }
-    throw new BadRequestException(baseResponeStatus.AUTH_NOT_AUTHORIZED);
+    throw new BadRequestException(baseResponeStatus.AUTH_VALIDATE_FAILURE);
   }
 
   async login(info: LoginInputDTO) {
@@ -43,7 +40,7 @@ export class AuthService {
     ).user_id;
     const payload = { email: email, sub: user_id };
     return {
-      access_token: this.jwtService.sign(payload), //jwt 토큰 생성
+      access_token: this.jwtService.sign(payload), //jwt 토큰 생성ㅁ
     };
   }
 }

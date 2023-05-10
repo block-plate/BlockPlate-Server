@@ -36,10 +36,10 @@ export const baseResponeStatus = {
     message: 'ACCESS_TOKEN이 유효하지 않습니다.',
   },
 
-  AUTH_NOT_AUTHORIZED: {
+  AUTH_VALIDATE_FAILURE: {
     is_success: false,
-    code: RESCODE + AUTH + NOT_AUTHORIZED,
-    message: '권한이 없습니다.',
+    code: RESCODE + AUTH + FAILURE,
+    message: 'user validate에 실패했습니다',
   },
 
   AUTH_ACCESS_TOKEN_EXPIRED: {
