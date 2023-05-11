@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Req,
-  Res,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
 import * as express from 'express';
 import { Public } from '../common/decorator/skip-auth.decorator';
 import { LocalAuthGuard } from '../common/guard/localAuth.guard';
@@ -40,10 +32,5 @@ export class AuthController {
       path: '/',
       httpOnly: true,
     });
-  }
-
-  @Get('profile')
-  getProfile(@Body() req) {
-    return req.user;
   }
 }

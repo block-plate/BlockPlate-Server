@@ -38,7 +38,7 @@ export class AuthService {
     const user_id = await (
       await this.userRepo.findUserByEmail({ email })
     ).user_id;
-    const payload = { email: email, sub: user_id };
+    const payload = { email: email, id: user_id };
     const token = this.jwtService.sign(payload); //jwt 토큰 생성
     return token;
   }
