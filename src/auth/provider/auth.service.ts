@@ -42,4 +42,14 @@ export class AuthService {
     const token = this.jwtService.sign(payload); //jwt 토큰 생성
     return token;
   }
+
+  async logOut() {
+    return {
+      token: '',
+      domain: 'localhost',
+      path: '/',
+      httpOnly: true,
+      maxAge: 0,
+    };
+  }
 }

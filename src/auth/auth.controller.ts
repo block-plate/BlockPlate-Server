@@ -33,4 +33,10 @@ export class AuthController {
       httpOnly: true,
     });
   }
+
+  @Post('logout')
+  async logOut(@Res({ passthrough: true }) res: express.Response) {
+    const { token, ...option } = await this.authService.logOut();
+    res.cookie('Authentication', token, option);
+  }
 }
