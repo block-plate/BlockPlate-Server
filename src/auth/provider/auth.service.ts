@@ -34,13 +34,12 @@ export class AuthService {
   }
 
   async login(info: LoginInputDTO) {
-    const { email, pwd } = info;
+    const { email } = info;
     const user_id = await (
       await this.userRepo.findUserByEmail({ email })
     ).user_id;
     const payload = { email: email, sub: user_id };
-    return {
-      access_token: this.jwtService.sign(payload), //jwt 토큰 생성ㅁ
-    };
+    const token = this.jwtService.sign(payload); //jwt 토큰 생성
+    return token;
   }
 }
