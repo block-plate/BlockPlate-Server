@@ -23,7 +23,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('/login')
   async login(
-    @Req() loginInputDTO: LoginInputDTO,
+    @Body() loginInputDTO: LoginInputDTO,
     @Res({ passthrough: true }) res: express.Response, //Response 오류
   ) {
     const token = await this.authService.login(loginInputDTO);

@@ -23,6 +23,7 @@ export class AuthService {
     const findUser = await this.userRepo.findUserByEmail({ email });
     const password = pwd;
     const hashed_password = findUser.pwd;
+
     if (
       findUser &&
       (await this.userService.comparePassword({ password, hashed_password }))
