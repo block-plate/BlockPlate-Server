@@ -16,6 +16,14 @@ export class UserCreateInputDTO
   email: string;
 
   @ApiProperty({
+    name: 'account',
+    description: '계좌주소',
+    type: 'string',
+  })
+  @IsString()
+  account: string;
+
+  @ApiProperty({
     name: 'pwd',
     description: '비밀번호',
     type: 'string',
