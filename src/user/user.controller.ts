@@ -10,12 +10,13 @@ import { UserService } from './provider/user.service';
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+  /*
   @Post('/')
   async createUser(@Body() userInputDTO: UserCreateInputDTO) {
     const result = await this.userService.createUser(userInputDTO);
     return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
-
+*/
   @Get('/')
   async getUserList() {
     const result = await this.userService.getUserList();

@@ -1,27 +1,34 @@
-import { Body, Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
-import * as express from 'express';
+import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
 import { Public } from '../common/decorator/skip-auth.decorator';
-import { LocalAuthGuard } from '../common/guard/localAuth.guard';
 import { BaseResponse } from '../common/util/res/BaseResponse';
 import { baseResponeStatus } from '../common/util/res/baseStatusResponse';
 import { UserCreateInputDTO } from '../user/dto/create_user.dto';
-import { LoginInputDTO } from '../user/dto/login_user.dto';
+import { LocalAuthGuard } from './guard/localAuth.guard';
 import { AuthService } from './provider/auth.service';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @UseGuards()
-  @Post('/signup')
+  @Public()
+  @UseGuards(LocalAuthGuard)
+  @Post('/login') //로그인
+  async login(@Req() req) {
+    const { email } = req.body;
+    return email;
+  }
+
+  @Public()
+  @Post('/signup') //회원가입
   async createUser(@Body() userInputDTO: UserCreateInputDTO) {
     const result = await this.authService.createUser(userInputDTO);
     return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
 
+  /*
   @Public()
   @UseGuards(LocalAuthGuard)
-  @Post('/login')
+  @Post('/login') //로그인
   async login(
     @Body() loginInputDTO: LoginInputDTO,
     @Res({ passthrough: true }) res: express.Response, //Response 오류
@@ -34,9 +41,12 @@ export class AuthController {
     });
   }
 
-  @Post('logout')
+  
+  @Public()
+  @Post('logout') //로그아웃
   async logOut(@Res({ passthrough: true }) res: express.Response) {
     const { token, ...option } = await this.authService.logOut();
     res.cookie('Authentication', token, option);
   }
+  */
 }

@@ -30,17 +30,17 @@ export class UserRepository {
         ...info,
       },
     });
-    console.log('!');
-
     return newUser;
   }
 
   async findUserByEmail({ email }) {
+    //email로 확인
     const user = await this.prisma.user.findUnique({ where: { email } });
     return user;
   }
 
   async findOneUser(info: Prisma.UserWhereInput) {
+    //user_id로 확인
     const user = await this.prisma.user.findFirst({ where: info });
     return user;
   }

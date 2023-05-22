@@ -7,6 +7,7 @@ import { UserRepository } from '../user/provider/user.repository';
 import { UserModule } from '../user/user.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './provider/auth.service';
+import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 
 @Module({
@@ -18,7 +19,7 @@ import { LocalStrategy } from './strategies/local.strategy';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
-        secret: configService.get('SECRET'),
+        secret: configService.get('ACCESS_TOKEN_SECRET'),
         signOptions: {
           expiresIn: `${configService.get('ACCESS_TOKEN_EXPIRESIN')}s`,
         },
@@ -26,7 +27,13 @@ import { LocalStrategy } from './strategies/local.strategy';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, PrismaService, UserRepository, LocalStrategy],
+  providers: [
+    AuthService,
+    PrismaService,
+    UserRepository,
+    LocalStrategy,
+    JwtStrategy,
+  ],
   exports: [AuthService, JwtModule],
 })
 export class AuthModule {}
