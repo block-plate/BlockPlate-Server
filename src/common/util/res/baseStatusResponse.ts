@@ -42,6 +42,12 @@ export const baseResponeStatus = {
     message: 'user validate에 실패했습니다',
   },
 
+  AUTH_PASSWORD_FAILURE: {
+    is_success: false,
+    code: RESCODE + AUTH + FAILURE,
+    message: '비밀번호가 올바르지 않습니다',
+  },
+
   AUTH_ACCESS_TOKEN_EXPIRED: {
     is_success: false,
     code: RESCODE + AUTH + EXPIRED,

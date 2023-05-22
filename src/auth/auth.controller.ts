@@ -1,4 +1,13 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
+import { Response } from 'express';
 import { Public } from '../common/decorator/skip-auth.decorator';
 import { BaseResponse } from '../common/util/res/BaseResponse';
 import { baseResponeStatus } from '../common/util/res/baseStatusResponse';
@@ -13,9 +22,14 @@ export class AuthController {
   @Public()
   @UseGuards(LocalAuthGuard)
   @Post('/login') //로그인
-  async login(@Req() req) {
-    const { email } = req.body;
-    return email;
+  async login(@Req() req, @Res({ passthrough: true }) res: Response) {
+    const token = await this.authService.login(req.body);
+    res.cookie('Authentication', token, {
+      //반환된 토큰을 쿠키에 저장
+      domain: 'localhost',
+      path: '/',
+      httpOnly: true,
+    });
   }
 
   @Public()
@@ -25,6 +39,10 @@ export class AuthController {
     return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
 
+  @Get('/profile')
+  getProfile(@Req() req) {
+    return req.user;
+  }
   /*
   @Public()
   @UseGuards(LocalAuthGuard)

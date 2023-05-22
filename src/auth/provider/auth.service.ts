@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
 import { baseResponeStatus } from '../../common/util/res/baseStatusResponse';
 import { UserCreateInputDTO } from '../../user/dto/create_user.dto';
 import { LoginInputDTO } from '../../user/dto/login_user.dto';
@@ -26,33 +27,41 @@ export class AuthService {
 
     const { email, pwd } = info;
     const findUser = await this.userRepo.findUserByEmail({ email });
+    if (!findUser)
+      throw new BadRequestException(baseResponeStatus.USER_NOT_EXIST);
     const password = pwd;
     const hashed_password = findUser.pwd;
 
-    if (
-      findUser &&
-      this.userService.comparePassword({ password, hashed_password })
-    ) {
-
+    if (await this.comparePassword({ password, hashed_password })) {
       const { pwd, ...result } = findUser;
       return result;
     }
-    throw new BadRequestException(baseResponeStatus.AUTH_VALIDATE_FAILURE);
+    throw new BadRequestException(baseResponeStatus.AUTH_PASSWORD_FAILURE);
+  }
+  async comparePassword({
+    password,
+    hashed_password,
+  }: {
+    password: string;
+    hashed_password: string;
+  }) {
+    const result = await bcrypt.compare(password, hashed_password);
+    return result;
+  }
+  async login(info: LoginInputDTO) {
+    const { email } = info;
+    const findUser = await this.userRepo.findUserByEmail({ email });
+    const user_id = findUser.user_id;
+    const payload = { email: email, id: user_id };
+    const token = this.jwtService.sign(payload); //유저 정보 -> jwt 토큰 생성
+    return token;
   }
 
   /*
 
  
 
-  async login(info: LoginInputDTO) {
-    const { email } = info;
-    const user_id = await (
-      await this.userRepo.findUserByEmail({ email })
-    ).user_id;
-    const payload = { email: email, id: user_id };
-    const token = this.jwtService.sign(payload); //유저 정보 -> jwt 토큰 생성
-    return token;
-  }
+  
 
   getCookieWithJwtAccessToken(email: string) {
     const payload = { email };
