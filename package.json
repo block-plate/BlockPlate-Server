@@ -12,7 +12,7 @@
     "start": "dotenv -e src/config/env/.development.env -- nest start",
     "start:dev": "dotenv -e src/config/env/.development.env -- nest start --watch",
     "start:debug": "dotenv -e src/config/env/.development.env -- nest start --debug --watch",
-    "start:prod": "dotenv -e dist/config/env/.production.env -- node dist/src/main",
+    "start:prod": "dotenv -e dist/config/env/.production.env -- node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "dotenv -e src/config/env/.test.env jest -i --runInBand --detectOpenHandles",
     "test:watch": "dotenv -e src/config/env/.test.env -- jest --watch --runInBand --detectOpenHandles",
