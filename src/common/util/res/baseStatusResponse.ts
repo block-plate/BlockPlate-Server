@@ -7,8 +7,18 @@
 
 import { INDEX, RESCODE, RES_ERR_CODE } from './BaseResponseIndex';
 
-const { AUTH, USER, ARCHIVE, CATEGORY, PRODUCT, CART, QUESTION, ANSWER } =
-  INDEX;
+const {
+  AUTH,
+  USER,
+  COURSE,
+  LECTURE,
+  REVIEW,
+  COMMENT,
+  QUESTION,
+  ANSWER,
+  INSTRUCTOR,
+  STUDENT,
+} = INDEX;
 const { EXIST, NOT_EXIST, FAILURE, EXPIRED, NOT_AUTHORIZED, INVALID } =
   RES_ERR_CODE;
 export const baseResponeStatus = {
@@ -26,10 +36,16 @@ export const baseResponeStatus = {
     message: 'ACCESS_TOKEN이 유효하지 않습니다.',
   },
 
-  AUTH_NOT_AUTHORIZED: {
+  AUTH_VALIDATE_FAILURE: {
     is_success: false,
-    code: RESCODE + AUTH + NOT_AUTHORIZED,
-    message: '권한이 없습니다.',
+    code: RESCODE + AUTH + FAILURE,
+    message: 'user validate에 실패했습니다',
+  },
+
+  AUTH_PASSWORD_FAILURE: {
+    is_success: false,
+    code: RESCODE + AUTH + FAILURE,
+    message: '비밀번호가 올바르지 않습니다',
   },
 
   AUTH_ACCESS_TOKEN_EXPIRED: {
@@ -50,29 +66,71 @@ export const baseResponeStatus = {
     message: '이미 존재하는 유저입니다.',
   },
 
-  ARCHIVE_NOT_EXIST: {
+  USER_EMAIL_EXIST: {
     is_success: false,
-    code: RESCODE + ARCHIVE + NOT_EXIST,
-    message: '존재하지 않는 아카이브입니다.',
-  },
-  ARCHIVE_EXIST: {
-    is_success: false,
-    code: RESCODE + ARCHIVE + EXIST,
-    message: '이미 존재하는 아카이브입니다.',
+    code: RESCODE + USER + EXIST,
+    message: '이미 존재하는 이메일입니다.',
   },
 
-  CATEGORY_NOT_EXIST: {
+  NOT_INSTRUCTOR: {
     is_success: false,
-    code: RESCODE + CATEGORY + NOT_EXIST,
-    message: '존재하지 않는 카테고리입니다.',
+    code: RESCODE + INSTRUCTOR + EXIST,
+    message: '해당 유저는 강사가 아닙니다.',
   },
 
-  CATEGORY_EXIST: {
+  NOT_STUDENT: {
     is_success: false,
-    code: RESCODE + CATEGORY + EXIST,
-    message: '이미 존재하는 카테고리입니다.',
+    code: RESCODE + STUDENT + EXIST,
+    message: '해당 유저는 학생이 아닙니다.',
   },
 
+  COURSE_NOT_EXIST: {
+    is_success: false,
+    code: RESCODE + COURSE + NOT_EXIST,
+    message: '존재하지 않는 코스입니다.',
+  },
+  COURSE_EXIST: {
+    is_success: false,
+    code: RESCODE + COURSE + EXIST,
+    message: '이미 존재하는 코스입니다.',
+  },
+
+  LECTURE_NOT_EXIST: {
+    is_success: false,
+    code: RESCODE + LECTURE + NOT_EXIST,
+    message: '존재하지 않는 강의입니다.',
+  },
+
+  LECTURE_EXIST: {
+    is_success: false,
+    code: RESCODE + LECTURE + EXIST,
+    message: '이미 존재하는 강의입니다.',
+  },
+
+  COMMENT_NOT_EXIST: {
+    is_success: false,
+    code: RESCODE + COMMENT + NOT_EXIST,
+    message: '존재하지 않는 코멘트입니다.',
+  },
+
+  COMMENT_EXIST: {
+    is_success: false,
+    code: RESCODE + COMMENT + EXIST,
+    message: '이미 존재하는 코멘트입니다.',
+  },
+
+  REVIEW_NOT_EXIST: {
+    is_success: false,
+    code: RESCODE + REVIEW + NOT_EXIST,
+    message: '존재하지 않는 리뷰입니다.',
+  },
+
+  REVIEW_EXIST: {
+    is_success: false,
+    code: RESCODE + REVIEW + EXIST,
+    message: '이미 존재하는 리뷰입니다.',
+  },
+  /*
   CATEGORY_INVALID: {
     is_success: false,
     code: RESCODE + CATEGORY + INVALID,
@@ -101,7 +159,7 @@ export const baseResponeStatus = {
     code: RESCODE + CART + INVALID,
     message: '유효하지않는 접근입니다',
   },
-
+*/
   QUESTION_NOT_EXIST: {
     is_success: false,
     code: RESCODE + QUESTION + NOT_EXIST,
@@ -113,7 +171,7 @@ export const baseResponeStatus = {
     code: RESCODE + QUESTION + EXIST,
     message: '이미 존재하는 질문입니다.',
   },
-
+  /*
   PASSWORD_NOT_NEEDED: {
     is_success: false,
     code: RESCODE + QUESTION + INVALID,
@@ -131,7 +189,7 @@ export const baseResponeStatus = {
     code: RESCODE + QUESTION + INVALID,
     message: '비밀번호가 틀렸습니다',
   },
-
+*/
   ANSWER_NOT_EXIST: {
     is_success: false,
     code: RESCODE + ANSWER + NOT_EXIST,
