@@ -33,6 +33,7 @@ model User {
 model Course {
   course_id     String           @id @db.Char(26)
   title         String           @db.VarChar(50)
+  amount        Float            @db.Float
   description   String           @db.Text
   instructor_id String           @db.Char(26)
   status        E_status         @default(ACTIVE)
@@ -50,7 +51,7 @@ model Course {
 
 model CourseUserRoom {
   room_id    String   @id @db.Char(26)
-  course_id  String?   @db.Char(26)
+  course_id  String?  @db.Char(26)
   student_id String?  @db.Char(26)
   status     E_status @default(ACTIVE)
   created_at DateTime @default(now())

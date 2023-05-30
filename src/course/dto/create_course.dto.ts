@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Prisma } from '@prisma/client';
-import { IsString } from 'class-validator';
+import { float } from 'aws-sdk/clients/cloudfront';
+import { IsNumber, IsString } from 'class-validator';
 import { IsULID } from '../../common/decorator/IsULID';
 
 export class CourseCreateInputDTO
@@ -13,6 +14,14 @@ export class CourseCreateInputDTO
   })
   @IsString()
   title: string;
+
+  @ApiProperty({
+    name: 'amount',
+    description: '코스가격',
+    type: 'float',
+  })
+  @IsNumber()
+  amount: float;
 
   @ApiProperty({
     name: 'description',

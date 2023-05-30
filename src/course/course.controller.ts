@@ -35,6 +35,7 @@ export class CourseController {
     
       필요한정보.
       - title: 코스 제목 - String
+      - amount: 코스 가격 - Float
       - description: 코스 설명 - String
       - instructor_id: 강사 유저 아이디 - String
       - student_id: 수강생 유저 아이디 - String

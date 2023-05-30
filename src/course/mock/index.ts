@@ -2,6 +2,7 @@ import { CourseCreateInputDTO } from '../dto/create_course.dto';
 
 export const courseCreateInputEX: CourseCreateInputDTO = {
   title: 'web-programming',
+  amount: 3600,
   description: 'build a web',
   instructor_id: '01GXMD3YCJTD7TKK8M1E3JRW9N',
 };
