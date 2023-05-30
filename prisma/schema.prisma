@@ -10,6 +10,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Payment {
+  payment_id         String   @id @db.Char(26)
+  user_id            String   @db.Char(26)
+  amount             Float    @db.Float
+  isSpend            Boolean  @default(false)
+  tx_id              String   @db.Char(64)
+  course_id          String   @db.Char(26)
+  instructor_account String   @db.Char(40)
+  created_at         DateTime @default(now())
+  updated_at         DateTime @default(now()) @updatedAt
+  course             Course   @relation("PAYMENT_COURSE", fields: [course_id], references: [course_id])
+
+  @@map("payments")
+}
+
 model User {
   user_id     String           @id @db.Char(26)
   account     String           @unique @db.Char(40)
@@ -44,6 +59,7 @@ model Course {
   reviews       Review[]         @relation("REVIEW_COURSE")
   questions     Question[]       @relation("QUESTION_COURSE")
   instructor    User             @relation("COURSE_INSTRUCTOR", fields: [instructor_id], references: [user_id])
+  payments      Payment[]        @relation("PAYMENT_COURSE")
 
   @@index([instructor_id], map: "courses_instructor_id_fkey")
   @@map("courses")
