@@ -7,17 +7,23 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { Public } from '../common/decorator/skip-auth.decorator';
 import { BaseResponse } from '../common/util/res/BaseResponse';
 import { baseResponeStatus } from '../common/util/res/baseStatusResponse';
 import { UserCreateInputDTO } from '../user/dto/create_user.dto';
+import { UserRepository } from '../user/provider/user.repository';
 import { LocalAuthGuard } from './guard/localAuth.guard';
 import { AuthService } from './provider/auth.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private jwtService: JwtService,
+    private userRepo: UserRepository,
+  ) {}
 
   @Public()
   @UseGuards(LocalAuthGuard)
@@ -41,8 +47,12 @@ export class AuthController {
 
   @Public()
   @Get('/profile')
-  getProfile(@Req() req) {
-    return req.user;
+  async getProfile(@Req() req) {
+    const token = req.cookies['Authentication'];
+    const decoded = this.jwtService.verify(token);
+    const user_id = decoded.id;
+    const user = await this.userRepo.findOneUser({ user_id });
+    return user;
   }
   /*
   @Public()

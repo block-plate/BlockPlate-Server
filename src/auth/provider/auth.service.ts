@@ -56,8 +56,11 @@ export class AuthService {
     const token = this.jwtService.sign(payload); //유저 정보 -> jwt 토큰 생성
     return token;
   }
-
-  /*
+/*
+  async decodeToken(token:string){
+    const decoded =
+  }
+  
 
  
 
