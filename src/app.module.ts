@@ -12,6 +12,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { QuestionModule } from './question/question.module';
 import { ReviewModule } from './review/review.module';
 import { UserModule } from './user/user.module';
+import { PaymentModule } from './payment/payment.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { UserModule } from './user/user.module';
     QuestionModule,
     AnswerModule,
     AuthModule,
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [
