@@ -11,5 +11,14 @@ export class LectureUpdateInputDTO
   title?: string;
 
   @IsOptional()
+  url?: string;
+
+  @IsOptional()
+  group?: string;
+
+  @IsOptional()
+  order?: number;
+
+  @IsOptional()
   data?: string;
 }
