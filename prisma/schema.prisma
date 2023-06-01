@@ -50,6 +50,7 @@ model Course {
   title         String           @db.VarChar(50)
   amount        Float            @db.Float
   description   String           @db.Text
+  data          String           @db.Text
   instructor_id String           @db.Char(26)
   status        E_status         @default(ACTIVE)
   created_at    DateTime         @default(now())
@@ -82,6 +83,9 @@ model Lecture {
   lecture_id String    @id @db.Char(26)
   course_id  String    @db.Char(26)
   title      String    @db.VarChar(50)
+  url        String    @db.VarChar(100)
+  group      String    @db.VarChar(50)
+  order      Int       @db.Int
   data       String    @db.Text
   status     E_status  @default(ACTIVE)
   created_at DateTime  @default(now())

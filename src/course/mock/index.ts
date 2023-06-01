@@ -4,6 +4,7 @@ export const courseCreateInputEX: CourseCreateInputDTO = {
   title: 'web-programming',
   amount: 3600,
   description: 'build a web',
+  data: '웹프로그래밍 상세설명',
   instructor_id: '01GXMD3YCJTD7TKK8M1E3JRW9N',
 };
 

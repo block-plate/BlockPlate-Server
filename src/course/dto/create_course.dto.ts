@@ -32,6 +32,14 @@ export class CourseCreateInputDTO
   description: string;
 
   @ApiProperty({
+    name: 'data',
+    description: '코스 상세 설명(마크다운)',
+    type: 'string',
+  })
+  @IsString()
+  data: string;
+
+  @ApiProperty({
     name: 'instructor_id',
     description: '강사 유저 아이디',
     type: 'string',

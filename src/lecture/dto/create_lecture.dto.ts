@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Prisma } from '@prisma/client';
-import { IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 import { IsULID } from '../../common/decorator/IsULID';
 
 export class LectureCreateInputDTO
@@ -21,6 +21,30 @@ export class LectureCreateInputDTO
   })
   @IsString()
   title: string;
+
+  @ApiProperty({
+    name: 'url',
+    description: '강의 url',
+    type: 'string',
+  })
+  @IsString()
+  url: string;
+
+  @ApiProperty({
+    name: 'group',
+    description: '강의 그룹',
+    type: 'string',
+  })
+  @IsString()
+  group: string;
+
+  @ApiProperty({
+    name: 'order',
+    description: '순서',
+    type: 'number',
+  })
+  @IsNumber()
+  order: number;
 
   @ApiProperty({
     name: 'data',

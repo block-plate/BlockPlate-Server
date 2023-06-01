@@ -39,6 +39,7 @@ export class AuthController {
     return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
 
+  @Public()
   @Get('/profile')
   getProfile(@Req() req) {
     return req.user;
