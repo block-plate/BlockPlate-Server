@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Get,
   Param,
   Post,
 } from '@nestjs/common';
@@ -35,10 +36,13 @@ export class PaymentController {
     const result = await this.paymentService.createPayment(paymentData);
     return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
-  /*
+
   @Get('/:user_id')
   async getPayments(@Param('user_id') user_id: string) {
-    const userExist = await this.userRepo.findOneUser({user_id})
+    const userExist = await this.userRepo.findOneUser({ user_id });
+    if (!userExist)
+      throw new BadRequestException(baseResponeStatus.USER_NOT_EXIST);
+    const result = await this.paymentService.getPayments(user_id);
+    return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
-  */
 }

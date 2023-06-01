@@ -28,4 +28,13 @@ export class PaymentRepository {
     });
     return newPayment;
   }
+
+  async getPaymentsByUser(user_id) {
+    const payments = await this.prisma.payment.findMany({
+      where: {
+        user_id: user_id,
+      },
+    });
+    return payments;
+  }
 }
