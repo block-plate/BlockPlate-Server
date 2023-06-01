@@ -21,7 +21,7 @@ export class CourseCreateInputDTO
     type: 'float',
   })
   @IsNumber()
-  amount: float;
+  amount: number;
 
   @ApiProperty({
     name: 'description',

@@ -88,7 +88,7 @@ export class CourseService {
     const exist = await this.courseRepo.findOneCourse({ course_id });
     if (!exist)
       throw new BadRequestException(baseResponeStatus.COURSE_NOT_EXIST);
-    console.log(user_id, course_id);
+    //console.log(user_id, course_id);
 
     return await this.courseRepo.userCourseApply({
       user_id,

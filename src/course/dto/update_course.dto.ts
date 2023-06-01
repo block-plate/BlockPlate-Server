@@ -11,5 +11,14 @@ export class CourseUpdateInputDTO
   title?: string;
 
   @IsOptional()
+  amount?: number;
+
+  @IsOptional()
   description?: string;
+
+  @IsOptional()
+  data?: string;
+
+  @IsOptional()
+  instructor_id?: string;
 }

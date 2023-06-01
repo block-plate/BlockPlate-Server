@@ -45,6 +45,13 @@ export class CourseRepository {
       where: {
         status: 'ACTIVE',
       },
+      include: {
+        instructor: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
     return courses;
   }

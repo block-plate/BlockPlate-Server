@@ -30,7 +30,7 @@ model User {
   account     String           @unique @db.Char(40)
   email       String           @unique @db.VarChar(100)
   pwd         String           @db.VarChar(100)
-  name        String           @db.VarChar(10)
+  name        String           @db.VarChar(20)
   type        Int              @db.TinyInt
   status      E_status         @default(ACTIVE)
   created_at  DateTime         @default(now())
