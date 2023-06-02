@@ -13,6 +13,7 @@ import { QuestionModule } from './question/question.module';
 import { ReviewModule } from './review/review.module';
 import { UserModule } from './user/user.module';
 import { PaymentModule } from './payment/payment.module';
+import { MineModule } from './mine/mine.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { PaymentModule } from './payment/payment.module';
     AnswerModule,
     AuthModule,
     PaymentModule,
+    MineModule,
   ],
   controllers: [AppController],
   providers: [

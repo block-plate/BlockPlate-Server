@@ -37,4 +37,33 @@ export class PaymentRepository {
     });
     return payments;
   }
+
+  async verifyAndUpdatePayments(transactions) {
+    for (const t of transactions) {
+      for (const txIn of transactions.txIns) {
+        const payment = await this.prisma.payment.findUnique({
+          where: { tx_id: txIn.txOutId },
+        });
+
+        if (!payment) {
+          console.log('payment not exist');
+          continue;
+        }
+
+        // instructor account를 찾고, amount가 강의의 amount와 같은지 확인
+        for (const txOut of t.txOuts) {
+          if (
+            txOut.account === payment.instructor_account &&
+            txOut.amount === payment.amount
+          ) {
+            // 확인되면 해당 payment DB is_spend 필드를 true로 변경
+            await this.prisma.payment.update({
+              where: { payment_id: payment.payment_id },
+              data: { isSpend: true },
+            });
+          }
+        }
+      }
+    }
+  }
 }
