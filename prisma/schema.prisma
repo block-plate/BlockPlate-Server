@@ -47,6 +47,7 @@ model User {
 
 model Course {
   course_id     String           @id @db.Char(26)
+  image         String           @db.VarChar(1000)
   title         String           @db.VarChar(50)
   amount        Float            @db.Float
   description   String           @db.Text
@@ -83,7 +84,7 @@ model Lecture {
   lecture_id String    @id @db.Char(26)
   course_id  String    @db.Char(26)
   title      String    @db.VarChar(50)
-  url        String    @db.VarChar(100)
+  url        String    @db.VarChar(1000)
   group      String    @db.VarChar(50)
   order      Int       @db.Int
   data       String    @db.Text
