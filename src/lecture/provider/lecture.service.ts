@@ -25,6 +25,13 @@ export class LectureService {
     return newLecture;
   }
 
+  async findOneLecture(info: Prisma.LectureWhereInput) {
+    const exist = await this.lectureRepo.findOneLecture(info);
+    if (!exist)
+      throw new BadRequestException(baseResponeStatus.LECTURE_NOT_EXIST);
+    return exist;
+  }
+
   async getLectureList({ course }: { course: string }) {
     const course_id = course;
     const courseExist = await this.courseRepo.findOneCourse({

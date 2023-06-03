@@ -79,6 +79,14 @@ export class LectureController {
     return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
 
+  @Get('/:lecture_id')
+  async findOneLecture(@Param('lecture_id') lecture_id: string) {
+    const result = await this.lectureService.findOneLecture({
+      lecture_id,
+    });
+    return new BaseResponse(baseResponeStatus.SUCCESS, result);
+  }
+
   @Get('/')
   async getLectureList(@Query() query) {
     const result = await this.lectureService.getLectureList(query);
