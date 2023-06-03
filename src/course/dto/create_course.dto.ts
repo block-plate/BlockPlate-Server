@@ -8,6 +8,14 @@ export class CourseCreateInputDTO
   implements Omit<Prisma.CourseUncheckedCreateInput, 'course_id'>
 {
   @ApiProperty({
+    name: 'image',
+    description: '코스이미지 url',
+    type: 'string',
+  })
+  @IsString()
+  image: string;
+
+  @ApiProperty({
     name: 'title',
     description: '코스제목',
     type: 'string',
