@@ -1,6 +1,7 @@
 import { CourseCreateInputDTO } from '../dto/create_course.dto';
 
 export const courseCreateInputEX: CourseCreateInputDTO = {
+  image: 'urlrurlrurl',
   title: 'web-programming',
   amount: 3600,
   description: 'build a web',

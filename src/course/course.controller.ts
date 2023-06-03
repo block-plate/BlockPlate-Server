@@ -85,6 +85,15 @@ export class CourseController {
     return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
 
+  //코스 한개 조회
+  @Get('/:course_id')
+  async findOneCourse(@Param('course_id') course_id: string) {
+    const result = await this.courseService.findOneCourse({
+      course_id,
+    });
+    return new BaseResponse(baseResponeStatus.SUCCESS, result);
+  }
+
   @Patch('/:course_id') //코스 수정
   async updateCourse(
     @Param('course_id') course_id: string,

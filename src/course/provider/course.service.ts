@@ -30,7 +30,7 @@ export class CourseService {
     return newCourse;
   }
 
-  async getCourse(info: Prisma.CourseWhereUniqueInput) {
+  async findOneCourse(info: Prisma.CourseWhereUniqueInput) {
     const exist = await this.courseRepo.findOneCourse(info);
     if (!exist)
       throw new BadRequestException(baseResponeStatus.COURSE_NOT_EXIST);

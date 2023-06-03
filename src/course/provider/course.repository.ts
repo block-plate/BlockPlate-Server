@@ -36,7 +36,13 @@ export class CourseRepository {
   }
 
   async findOneCourse(info: Prisma.CourseWhereInput) {
-    const course = await this.prisma.course.findFirst({ where: info });
+    const course = await this.prisma.course.findFirst({
+      where: info,
+      include: {
+        lectures: true,
+        reviews: true,
+      },
+    });
     return course;
   }
 
