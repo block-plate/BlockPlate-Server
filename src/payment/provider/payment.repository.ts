@@ -39,7 +39,6 @@ export class PaymentRepository {
   }
 
   async verifyAndUpdatePayments(transactions) {
-    /*
     for (const t of transactions) {
       for (const txIn of t.txIns) {
         const payment = await this.prisma.payment.findUnique({
@@ -66,6 +65,5 @@ export class PaymentRepository {
         }
       }
     }
-    */
   }
 }
