@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ulid } from 'ulid';
 import { CourseRepository } from '../../course/provider/course.repository';
+import { CourseService } from '../../course/provider/course.service';
 import { PrismaService } from '../../prisma/prisma.service';
 import { UserRepository } from '../../user/provider/user.repository';
 import { paymentData } from '../interface/paymentData.interface';
@@ -10,6 +11,7 @@ export class PaymentRepository {
   constructor(
     private readonly prisma: PrismaService,
     private readonly courseRepo: CourseRepository,
+    private readonly courseService: CourseService,
     private readonly userRepo: UserRepository,
   ) {}
 
@@ -39,29 +41,34 @@ export class PaymentRepository {
   }
 
   async verifyAndUpdatePayments(transactions) {
-    for (const t of transactions) {
+    for (const transaction of transactions) {
+      const payment = await this.prisma.payment.findUnique({
+        where: { tx_id: transaction.txIns[0].txOutId },
+      });
+      if (!payment) {
+        //없으면
+        console.log('payment not exist');
+        continue;
+      }
+      /*
       for (const txIn of t.txIns) {
         const payment = await this.prisma.payment.findUnique({
           where: { tx_id: txIn.txOutId },
-        });
+        });      
+        */
+      // instructor account를 찾고, amount가 강의의 amount와 같은지 확인
+      for (const txOut of transaction.txOuts) {
+        if (
+          txOut.account === payment.instructor_account &&
+          txOut.amount === payment.amount
+        ) {
+          // 확인되면 해당 payment DB is_spend 필드를 true로 변경
+          await this.prisma.payment.update({
+            where: { payment_id: payment.payment_id },
+            data: { isSpend: true },
+          });
 
-        if (!payment) {
-          console.log('payment not exist');
-          continue;
-        }
-
-        // instructor account를 찾고, amount가 강의의 amount와 같은지 확인
-        for (const txOut of t.txOuts) {
-          if (
-            txOut.account === payment.instructor_account &&
-            txOut.amount === payment.amount
-          ) {
-            // 확인되면 해당 payment DB is_spend 필드를 true로 변경
-            await this.prisma.payment.update({
-              where: { payment_id: payment.payment_id },
-              data: { isSpend: true },
-            });
-          }
+          //payment 디비에서 돈을 지불한 사람에게 코스 추가해줌
         }
       }
     }
