@@ -12,6 +12,7 @@ export const INDEX = {
   ANSWER: 70000,
   INSTRUCTOR: 80000,
   STUDENT: 90000,
+  MINE: 100000,
 };
 
 export const REQ_ERR_CODE = {};

@@ -1,5 +1,6 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { baseResponeStatus } from '../../common/util/res/baseStatusResponse';
 import { PaymentRepository } from '../../payment/provider/payment.repository';
 import { transactionEX } from '../mock';
 
@@ -32,7 +33,7 @@ export class MineService {
       >>>>repo에서 접근(prisma)
       */
     } catch (error) {
-      console.log(error);
+      throw new BadRequestException(baseResponeStatus.MINE_FAILURE);
     }
   }
 }
