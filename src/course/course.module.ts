@@ -8,6 +8,6 @@ import { CourseService } from './provider/course.service';
   imports: [UserModule],
   controllers: [CourseController],
   providers: [CourseService, CourseRepository],
-  exports: [CourseRepository],
+  exports: [CourseRepository, CourseService],
 })
 export class CourseModule {}
