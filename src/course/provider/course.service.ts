@@ -65,6 +65,15 @@ export class CourseService {
     return await this.courseRepo.getCourseListByUser({ user_id });
   }
 
+  async getCourseListByInstructor({ user_id }) {
+    const userExist = await this.userRepo.findOneUser({
+      user_id,
+    });
+    if (!userExist)
+      throw new BadRequestException(baseResponeStatus.USER_NOT_EXIST);
+    return await this.courseRepo.getCourseListByInstructor({ user_id });
+  }
+
   async deleteStatusCourse(info: Prisma.CourseWhereUniqueInput) {
     const exist = await this.courseRepo.findOneCourse(info);
     if (!exist)

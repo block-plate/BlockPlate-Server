@@ -39,6 +39,7 @@ export class CourseRepository {
     const course = await this.prisma.course.findFirst({
       where: info,
       include: {
+        instructor: true,
         lectures: true,
         reviews: true,
       },
@@ -62,7 +63,19 @@ export class CourseRepository {
     return courses;
   }
 
+  async getCourseListByInstructor({ user_id }) {
+    //instructor id로 코스 리스트 반환
+    const courses = await this.prisma.course.findMany({
+      where: {
+        instructor_id: user_id,
+        status: 'ACTIVE',
+      },
+    });
+    return courses;
+  }
+
   async getCourseListByUser({ user_id }) {
+    //수강하는 user id로 코스 리스트 반환
     const courses = await this.prisma.courseUserRoom.findMany({
       where: {
         student_id: user_id,
