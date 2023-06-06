@@ -74,7 +74,8 @@ export class Application {
 
   private async setUpGlobalMiddleware() {
     this.server.enableCors({
-      origin: this.corsOriginList,
+      //origin: this.corsOriginList,
+      origin: 'http://localhost:8000',
       credentials: true,
     });
     this.server.use(

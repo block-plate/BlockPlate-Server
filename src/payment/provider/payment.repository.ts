@@ -43,7 +43,7 @@ export class PaymentRepository {
     return payments;
   }
 
-  async verifyAndUpdatePayments(transactions) {
+  async ㅇ(transactions) {
     for (const transaction of transactions) {
       const payment = await this.prisma.payment.findUnique({
         where: { tx_id: transaction.txIns[0].txOutId },
