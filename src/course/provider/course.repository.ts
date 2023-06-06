@@ -39,7 +39,12 @@ export class CourseRepository {
     const course = await this.prisma.course.findFirst({
       where: info,
       include: {
-        instructor: true,
+        instructor: {
+          select: {
+            user_id: true,
+            name: true,
+          },
+        },
         lectures: true,
         reviews: true,
       },
