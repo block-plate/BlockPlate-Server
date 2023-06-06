@@ -60,6 +60,7 @@ export class CourseRepository {
       include: {
         instructor: {
           select: {
+            user_id: true,
             name: true,
           },
         },
@@ -74,6 +75,14 @@ export class CourseRepository {
       where: {
         instructor_id: user_id,
         status: 'ACTIVE',
+      },
+      include: {
+        instructor: {
+          select: {
+            user_id: true,
+            name: true,
+          },
+        },
       },
     });
     return courses;
