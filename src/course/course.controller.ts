@@ -78,7 +78,7 @@ export class CourseController {
     return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
 
-  @Get('/:user_id')
+  @Get('instructor/:user_id')
   async instructorCourseList(@Param('user_id') user_id: string) {
     const result = await this.courseService.getCourseListByInstructor({
       user_id,
