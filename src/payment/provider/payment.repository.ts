@@ -70,6 +70,7 @@ export class PaymentRepository {
             where: { payment_id: payment.payment_id },
             data: { isSpend: true },
           });
+          console.log('코스 추가');
 
           //payment 디비에서 돈을 지불한 사람에게 코스 추가해줌
           const user = payment.user_id;

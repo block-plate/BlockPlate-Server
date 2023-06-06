@@ -63,6 +63,7 @@ export class CourseController {
     return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
 
+  /*
   @Post('apply') //user -> course 신청
   async userCourseApply(@Query() query: userCourseApplyQuery) {
     const { user, course } = query;
@@ -71,7 +72,7 @@ export class CourseController {
     const result = await this.courseService.userCourseApply(query);
     return new BaseResponse(baseResponeStatus.SUCCESS, result);
   }
-
+*/
   @Get('apply/:user_id')
   async userCourseList(@Param('user_id') user_id: string) {
     const result = await this.courseService.getCourseListByUser({ user_id });

@@ -18,7 +18,7 @@ export class MineService {
       //const transactions = response.data.block.data;
       const transactions = transactionEX; //mock
       await this.paymentRepo.verifyAndUpdatePayments(transactions);
-      console.log(transactions);
+      //console.log(transactions);
 
       //return transactions;
 
