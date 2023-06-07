@@ -14,7 +14,7 @@ export class MineService {
     const url = `http://block.platechain.shop/v1/block/least`;
     try {
       const response = await this.httpService.axiosRef.get(url);
-      console.log(response);
+      //console.log(response);
 
       const transactions = response.data.block.data;
       //const transactions = transactionEX; //mock
