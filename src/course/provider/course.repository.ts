@@ -43,6 +43,7 @@ export class CourseRepository {
           select: {
             user_id: true,
             name: true,
+            account: true,
           },
         },
         lectures: true,
