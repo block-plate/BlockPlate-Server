@@ -46,7 +46,7 @@ export class PaymentRepository {
   async verifyAndUpdatePayments(transactions) {
     for (const transaction of transactions) {
       const payment = await this.prisma.payment.findUnique({
-        where: { tx_id: transaction.txIns[0].txOutId },
+        where: { tx_id: transaction.hash },
       });
       if (!payment) {
         //없으면

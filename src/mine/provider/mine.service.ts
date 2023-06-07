@@ -2,7 +2,6 @@ import { HttpService } from '@nestjs/axios';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { baseResponeStatus } from '../../common/util/res/baseStatusResponse';
 import { PaymentRepository } from '../../payment/provider/payment.repository';
-import { transactionEX } from '../mock';
 
 @Injectable()
 export class MineService {
@@ -15,6 +14,8 @@ export class MineService {
     const url = `http://block.platechain.shop/v1/block/least`;
     try {
       const response = await this.httpService.axiosRef.get(url);
+      console.log(response);
+
       const transactions = response.data.block.data;
       //const transactions = transactionEX; //mock
       await this.paymentRepo.verifyAndUpdatePayments(transactions);
