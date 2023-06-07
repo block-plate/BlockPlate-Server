@@ -56,47 +56,4 @@ export class AuthService {
     const token = this.jwtService.sign(payload); //유저 정보 -> jwt 토큰 생성
     return token;
   }
-  /*
-  async decodeToken(token:string){
-    const decoded =
-  }
-  
-
- 
-
-  
-
-  getCookieWithJwtAccessToken(email: string) {
-    const payload = { email };
-    const token = this.jwtService.sign(payload, {
-      secret: this.configService.get('ACCESS_TOKEN_SECRET'),
-      expiresIn: `${this.configService.get('ACCESS_TOKEN_EXPIRATION_TIME')}s`,
-    });
-
-    return {
-      accessToken: token,
-      domain: 'localhost',
-      path: '/',
-      httpOnly: true,
-      maxAge:
-        Number(this.configService.get('ACCESS_TOKEN_EXPIRATION_TIME')) * 1000,
-    };
-  }
-  getCookiesForLogOut() {
-    return {
-      accessOption: {
-        domain: 'localhost',
-        path: '/',
-        httpOnly: true,
-        maxAge: 0,
-      },
-      refreshOption: {
-        domain: 'localhost',
-        path: '/',
-        httpOnly: true,
-        maxAge: 0,
-      },
-    };
-  }
-  */
 }

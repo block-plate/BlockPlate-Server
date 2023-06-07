@@ -14,6 +14,7 @@ import { BaseResponse } from '../common/util/res/BaseResponse';
 import { baseResponeStatus } from '../common/util/res/baseStatusResponse';
 import { UserCreateInputDTO } from '../user/dto/create_user.dto';
 import { UserRepository } from '../user/provider/user.repository';
+import { JwtAuthGuard } from './guard/jwt.guard';
 import { LocalAuthGuard } from './guard/localAuth.guard';
 import { AuthService } from './provider/auth.service';
 
@@ -46,6 +47,7 @@ export class AuthController {
   }
 
   @Public()
+  @UseGuards(JwtAuthGuard)
   @Get('/profile')
   async getProfile(@Req() req) {
     const token = req.cookies['Authentication'];
