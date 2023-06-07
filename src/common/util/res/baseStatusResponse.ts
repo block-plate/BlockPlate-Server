@@ -161,4 +161,10 @@ export const baseResponeStatus = {
     code: RESCODE + MINE + FAILURE,
     message: 'checkMine 요청에 실패했습니다',
   },
+
+  MINE_AMOUNT_ERROR: {
+    is_success: false,
+    code: RESCODE + MINE + FAILURE,
+    message: 'payment amount가 적습니다',
+  },
 };

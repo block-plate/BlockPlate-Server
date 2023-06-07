@@ -62,6 +62,15 @@ export class PaymentRepository {
         */
       // instructor account를 찾고, amount가 강의의 amount와 같은지 확인
       for (const txOut of transaction.txOuts) {
+        if (txOut.amount > payment.amount) {
+          await this.prisma.payment.update({
+            where: { payment_id: payment.payment_id },
+            data: {
+              amountError: true,
+            },
+          });
+          throw new BadRequestException(baseResponeStatus.MINE_AMOUNT_ERROR);
+        }
         if (
           txOut.account === payment.instructor_account &&
           txOut.amount === payment.amount

@@ -15,6 +15,7 @@ model Payment {
   user_id            String   @db.Char(26)
   amount             Float    @db.Float
   isSpend            Boolean  @default(false)
+  amountError        Boolean  @default(false)
   tx_id              String   @unique @db.Char(64)
   course_id          String   @db.Char(26)
   instructor_account String   @db.Char(40)
