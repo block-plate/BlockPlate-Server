@@ -92,12 +92,13 @@ export class CourseService {
     });
     if (!userExist)
       throw new BadRequestException(baseResponeStatus.USER_NOT_EXIST);
-    const checkUser = await this.userRepo.checkUserType({ user_id });
-    if (checkUser) throw new BadRequestException(baseResponeStatus.NOT_STUDENT);
+    //const checkUser = await this.userRepo.checkUserType({ user_id });
+    //if (checkUser) throw new BadRequestException(baseResponeStatus.NOT_STUDENT);
     const exist = await this.courseRepo.findOneCourse({ course_id });
     if (!exist)
       throw new BadRequestException(baseResponeStatus.COURSE_NOT_EXIST);
-    //console.log(user_id, course_id);
+    console.log(user_id, course_id);
+    console.log('service check');
 
     return await this.courseRepo.userCourseApply({
       user_id,

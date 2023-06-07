@@ -2,7 +2,6 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { ulid } from 'ulid';
 import { BaseResponse } from '../../common/util/res/BaseResponse';
 import { baseResponeStatus } from '../../common/util/res/baseStatusResponse';
-import { userCourseApplyQuery } from '../../course/interface/userCourseApplyQuery.interface';
 import { CourseRepository } from '../../course/provider/course.repository';
 import { CourseService } from '../../course/provider/course.service';
 import { PrismaService } from '../../prisma/prisma.service';
@@ -45,6 +44,8 @@ export class PaymentRepository {
 
   async verifyAndUpdatePayments(transactions) {
     for (const transaction of transactions) {
+      console.log(transaction.hash);
+
       const payment = await this.prisma.payment.findUnique({
         where: { tx_id: transaction.hash },
       });
@@ -75,10 +76,15 @@ export class PaymentRepository {
           //payment 디비에서 돈을 지불한 사람에게 코스 추가해줌
           const user = payment.user_id;
           const course = payment.course_id;
-          const query: userCourseApplyQuery = { user, course };
+          //console.log(user, course);
+
+          //const query: userCourseApplyQuery = { user, course };
           if (!user || !course)
             throw new BadRequestException('user_id,course_id are all needed');
-          const result = await this.courseService.userCourseApply(query);
+          const result = await this.courseService.userCourseApply({
+            user,
+            course,
+          });
           return new BaseResponse(baseResponeStatus.SUCCESS, result);
         }
       }
