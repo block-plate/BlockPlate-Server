@@ -74,8 +74,10 @@ export class PaymentRepository {
         }
         if (
           txOut.account === payment.instructor_account &&
-          txOut.amount === payment.amount
+          txOut.amount === payment.amount &&
+          !payment.isSpend
         ) {
+          //!isSpend 추가
           // 확인되면 해당 payment DB is_spend 필드를 true로 변경
           await this.prisma.payment.update({
             where: { payment_id: payment.payment_id },
