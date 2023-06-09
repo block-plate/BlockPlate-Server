@@ -69,7 +69,8 @@ export class PaymentRepository {
               amountError: true,
             },
           });
-          throw new BadRequestException(baseResponeStatus.MINE_AMOUNT_ERROR);
+          //throw new BadRequestException(baseResponeStatus.MINE_AMOUNT_ERROR);
+          continue;
         }
         if (
           txOut.account === payment.instructor_account &&
@@ -78,7 +79,7 @@ export class PaymentRepository {
           // 확인되면 해당 payment DB is_spend 필드를 true로 변경
           await this.prisma.payment.update({
             where: { payment_id: payment.payment_id },
-            data: { isSpend: true },
+            data: { isSpend: true, amountError: false },
           });
           //console.log('코스 추가');
 
