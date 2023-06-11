@@ -3,6 +3,7 @@ import { CourseCreateInputDTO } from '../dto/create_course.dto';
 export const courseCreateInputEX: CourseCreateInputDTO = {
   image: 'urlrurlrurl',
   title: 'web-programming',
+  tags: 'strstr',
   amount: 3600,
   description: 'build a web',
   data: '웹프로그래밍 상세설명',
