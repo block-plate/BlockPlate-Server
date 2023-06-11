@@ -50,6 +50,7 @@ model Course {
   course_id     String           @id @db.Char(26)
   image         String           @db.VarChar(1000)
   title         String           @db.VarChar(50)
+  tags          String           @db.VarChar(50)
   amount        Float            @db.Float
   description   String           @db.Text
   data          String           @db.Text
