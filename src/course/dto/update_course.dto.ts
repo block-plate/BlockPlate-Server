@@ -11,6 +11,9 @@ export class CourseUpdateInputDTO
   title?: string;
 
   @IsOptional()
+  tags?: string;
+
+  @IsOptional()
   amount?: number;
 
   @IsOptional()
