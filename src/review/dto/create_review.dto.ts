@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Prisma } from '@prisma/client';
-import { IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 import { IsULID } from 'src/common/decorator/IsULID';
 
 export class ReviewCreateInputDTO
@@ -37,4 +37,12 @@ export class ReviewCreateInputDTO
   })
   @IsString()
   contents: string;
+
+  @ApiProperty({
+    name: 'rating',
+    description: '별점',
+    type: 'float',
+  })
+  @IsNumber()
+  rating: number;
 }

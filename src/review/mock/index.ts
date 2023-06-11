@@ -5,4 +5,5 @@ export const reviewCreateInputEX: ReviewCreateInputDTO = {
   user_id: '01GXM9K8PPFYZK897T2E7CSFSE',
   title: 'good',
   contents: 'Ilikeit',
+  rating: 4.5,
 };
