@@ -122,6 +122,7 @@ model Review {
   user_id    String   @db.Char(26)
   title      String   @db.VarChar(50)
   contents   String   @db.Text
+  rating     Float    @db.Float
   status     E_status @default(ACTIVE)
   created_at DateTime @default(now())
   updated_at DateTime @default(now()) @updatedAt
