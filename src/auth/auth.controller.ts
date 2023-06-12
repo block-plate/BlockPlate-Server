@@ -33,7 +33,7 @@ export class AuthController {
     const token = await this.authService.login(req.body);
     res.cookie('Authentication', token, {
       //반환된 토큰을 쿠키에 저장
-      //domain: 'www.platechain.shop',
+      domain: 'api.platechain.shop',
       path: '/',
       httpOnly: true,
     });
