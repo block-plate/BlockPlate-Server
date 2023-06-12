@@ -75,7 +75,7 @@ export class Application {
   private async setUpGlobalMiddleware() {
     this.server.enableCors({
       //origin: this.corsOriginList,
-      origin: 'http://localhost:8000',
+      origin: ['http://localhost:8000', 'http://www.platechain.shop'],
       credentials: true,
     });
     this.server.use(
